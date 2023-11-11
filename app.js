@@ -1,6 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import userRouter from "./routes/userRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js"
 import bodyParser from "body-parser";
 import cors from "cors"
 
@@ -14,7 +15,7 @@ config({
 
 app.use(
   cors({
-    origin: [process.env.FE_URL, "http://localhost:3000"],
+    origin: [process.env.FE_URL, "http://localhost:3000","http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -33,6 +34,7 @@ app.use(
 
 //Using Routes
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/blog", blogRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
