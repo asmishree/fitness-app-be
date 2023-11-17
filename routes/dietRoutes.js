@@ -50,7 +50,7 @@ router.get("/getall", async (req, res) => {
 });
 
 // Get diet by ID
-router.get("/:id", async (req, res) => {
+router.get("/getdiet/:id", async (req, res) => {
   try {
     const diet = await Diet.findById(req.params.id);
 
