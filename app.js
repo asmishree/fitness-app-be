@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import userRouter from "./routes/userRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js"
 import dietRoutes from "./routes/dietRoutes.js"
+import contactRoutes from "./routes/contactRoutes.js"
 import bodyParser from "body-parser";
 import cors from "cors"
 
@@ -37,6 +38,7 @@ app.use(
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/blog", blogRoutes);
 app.use("/api/v1/diet", dietRoutes);
+app.use("/api/v1/contact", contactRoutes);
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
