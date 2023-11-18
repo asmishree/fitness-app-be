@@ -49,6 +49,32 @@ router.get("/getall", async (req, res) => {
   }
 });
 
+router.get("/shortby", async (req, res) => {
+  try {
+    let sortParams = {};
+
+    // Check if dietpref is provided in the query
+    if (req.query.dietpref) {
+      sortParams.dietpref = req.query.dietpref;
+    }
+
+    // Check if activity is provided in the query
+    if (req.query.activity) {
+      sortParams.activity = req.query.activity;
+    }
+
+    // Fetch diets based on the sort parameters
+    const diets = await Diet.find(sortParams);
+    
+    res.json(diets);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+
+
 // Get diet by ID
 router.get("/getdiet/:id", async (req, res) => {
   try {
