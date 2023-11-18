@@ -64,14 +64,27 @@ router.get("/shortby", async (req, res) => {
     }
 
     // Fetch diets based on the sort parameters
-    const diets = await Diet.find(sortParams);
-    
+    let diets = await Diet.find(sortParams);
+
+    // Shuffle the diets array
+    diets = shuffleArray(diets);
+
     res.json(diets);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error");
   }
 });
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 
 
 
