@@ -8,6 +8,7 @@ const router = express.Router();
 router.post(
   "/create",
   [
+    body("title").notEmpty().withMessage("Title is required"),
     body("dietpref").notEmpty().withMessage("Dietary Preference is required"),
     body("activity").notEmpty().withMessage("Activity Level is required"),
     body("yourdiet").notEmpty().withMessage("Your Diet is required"),
@@ -19,9 +20,10 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { dietpref, activity, yourdiet } = req.body;
+      const { title, dietpref, activity, yourdiet } = req.body;
 
       const newDiet = new Diet({
+        title,
         dietpref,
         activity,
         yourdiet,
@@ -37,7 +39,7 @@ router.post(
 );
 
 // Get all diets
-router.get("/all", async (req, res) => {
+router.get("/getall", async (req, res) => {
   try {
     const diets = await Diet.find();
     res.json(diets);
@@ -48,7 +50,7 @@ router.get("/all", async (req, res) => {
 });
 
 // Get diet by ID
-router.get("/:id", async (req, res) => {
+router.get("/getdiet/:id", async (req, res) => {
   try {
     const diet = await Diet.findById(req.params.id);
 
@@ -67,6 +69,7 @@ router.get("/:id", async (req, res) => {
 router.put(
   "/update/:id",
   [
+    body("title").notEmpty().withMessage("Title is required"),
     body("dietpref").notEmpty().withMessage("Dietary Preference is required"),
     body("activity").notEmpty().withMessage("Activity Level is required"),
     body("yourdiet").notEmpty().withMessage("Your Diet is required"),
@@ -78,9 +81,10 @@ router.put(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const { dietpref, activity, yourdiet } = req.body;
+      const { title, dietpref, activity, yourdiet } = req.body;
 
       const updatedDiet = {
+        title,
         dietpref,
         activity,
         yourdiet,
