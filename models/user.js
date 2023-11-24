@@ -28,7 +28,7 @@ const schema = new mongoose.Schema({
     unique: true,
   },
   password: {
-    required: true,
+    required: false,
     type: String,
 
   },
